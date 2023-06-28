@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="main-container">
+    <h2>Dodaj użytkownika</h2>
+    <form th:action="@{/}" method="post">
+        <div>
+            <label for="firstName">Imię</label>
+            <input type="text" name="firstName" id="firstName">
+        </div>
+        <div>
+            <label for="lastName">Nazwisko</label>
+            <input type="text" name="lastName" id="lastName">
+        </div>
+        <div>
+            <label for="age">Wiek</label>
+            <input type="number" name="age" id="age">
+        </div>
+        <div>
+            <button type="submit">Dodaj</button>
+        </div>
+    </form>
+
+    <h2 th:if="${selectedUser}">Szczegóły</h2>
+    <div class="user-view" th:if="${selectedUser}">
+        <p><span>Id: </span><span th:text="${selectedUser.id}"></span></p>
+        <p><span>Imię: </span><span th:text="${selectedUser.firstName}"></span></p>
+        <p><span>Nazwisko: </span><span th:text="${selectedUser.lastName}"></span></p>
+        <p><span>Wiek: </span><span th:text="${selectedUser.age}"></span></p>
+    </div>
+
+    <h2>Lista</h2>
+    <div class="user-list" th:if="${users}">
+        <div class="user-row" th:each="user : ${users}">
+            <p th:text="${user.firstName + ' ' + user.lastName}"></p>
+            <a th:href="@{'/' + ${user.id}}">POKAŻ</a>
+            <a th:href="@{'/delete/' + ${user.id}}">X</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
